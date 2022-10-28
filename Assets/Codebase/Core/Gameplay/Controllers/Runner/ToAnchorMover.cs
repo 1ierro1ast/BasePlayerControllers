@@ -32,11 +32,8 @@ namespace Codebase.Core.Gameplay.Controllers.Runner
             }
 
             var anchorTransformPosition = _anchor.transform.position;
-            
-            _anchorPositionExcludeY.x = anchorTransformPosition.x;
-            _anchorPositionExcludeY.z = anchorTransformPosition.z;
-            
-            transform.position = Vector3.Lerp(transform.position, _anchorPositionExcludeY,
+
+            transform.position = Vector3.Lerp(transform.position, anchorTransformPosition,
                 _anchorMoveSettings.StrafeSpeed * Time.deltaTime);
         }
     }
