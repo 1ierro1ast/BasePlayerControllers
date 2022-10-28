@@ -27,18 +27,18 @@ namespace Codebase.Core.Gameplay.Controllers.Runner
         {
             var currentLocalPosition = transform.localPosition;
             transform.localPosition += new Vector3(currentLocalPosition.x, -1, currentLocalPosition.z)
-            * (20f * Time.fixedDeltaTime);
+            * (9f * Time.fixedDeltaTime);
         }
 
         private void ProjectY()
         {
-            var localPoint = transform.InverseTransformPoint(_hit.point);
             
-            var currentLocalPosition = transform.localPosition;
+            var currentLocalPosition = transform.position;
+            Vector3 localPoint = _hit.point;
             localPoint.x = currentLocalPosition.x;
             localPoint.z = currentLocalPosition.z;
-            
-            transform.localPosition = localPoint;
+
+            transform.position = localPoint;
         }
 
         private bool CheckGround()

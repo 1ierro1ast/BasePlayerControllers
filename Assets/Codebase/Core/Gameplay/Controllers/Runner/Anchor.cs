@@ -73,7 +73,8 @@ namespace Codebase.Core.Gameplay.Controllers.Runner
         {
             var mouseXPositionPercent = (GetPositionWithZeroCenter(_inputService.MousePositionInViewport) + _xOffset) *
                                         _anchorMoveSettings.AnchorMaxDeviation;
-            transform.localPosition = new Vector3(mouseXPositionPercent, 0, 0);
+            var localPosition = transform.localPosition;
+            transform.localPosition = new Vector3(mouseXPositionPercent, localPosition.y, localPosition.z);
         }
 
         private float GetPositionWithZeroCenter(Vector3 mousePosition) => (mousePosition.x - 0.5f) * 2;

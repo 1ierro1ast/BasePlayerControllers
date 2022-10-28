@@ -23,7 +23,8 @@ namespace Codebase.Core.Gameplay.Controllers.Runner
         private void Update()
         {
             if (!_isMoving) return;
-            transform.Translate(Vector3.forward * (_anchorMoveSettings.ForwardSpeed * Time.deltaTime));
+            var forwardSpeed = Vector3.forward * (_anchorMoveSettings.ForwardSpeed * Time.deltaTime);
+            transform.Translate(forwardSpeed);
         }
 
         private void OnDestroy()
