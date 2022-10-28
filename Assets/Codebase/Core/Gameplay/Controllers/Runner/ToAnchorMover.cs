@@ -3,26 +3,25 @@ using Codebase.Infrastructure.Services;
 using Codebase.Infrastructure.Services.Settings;
 using UnityEngine;
 
-namespace Codebase.Core.Gameplay.Controller
+namespace Codebase.Core.Gameplay.Controllers.Runner
 {
     public class ToAnchorMover : MonoBehaviour
     {
-        private MoveSettings _moveSettings;
+        private AnchorMoveSettings _anchorMoveSettings;
         private Anchor _anchor;
         private Vector3 _anchorPositionExcludeY;
         private const string Tag = "[ToAnchorMover]";
 
         private void Awake()
         {
-            _moveSettings = AllServices.Container.Single<GameSettings>().MoveSettings;
-
+            _anchorMoveSettings = AllServices.Container.Single<GameSettings>().AnchorMoveSettings;
             _anchor = FindObjectOfType<Anchor>();
             
-            var anchorTransform = _anchor.transform;
+            var anchorTransformPosition = _anchor.transform.position;
             _anchorPositionExcludeY = new Vector3(
-                anchorTransform.position.x, 
+                anchorTransformPosition.x, 
                 transform.position.y, 
-                anchorTransform.position.z);
+                anchorTransformPosition.z);
         }
 
         private void LateUpdate()
@@ -38,7 +37,7 @@ namespace Codebase.Core.Gameplay.Controller
             _anchorPositionExcludeY.z = anchorTransformPosition.z;
             
             transform.position = Vector3.Lerp(transform.position, _anchorPositionExcludeY,
-                _moveSettings.StrafeSpeed * Time.deltaTime);
+                _anchorMoveSettings.StrafeSpeed * Time.deltaTime);
         }
     }
 }

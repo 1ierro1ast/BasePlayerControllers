@@ -4,13 +4,13 @@ using Codebase.Infrastructure.Services.Input;
 using Codebase.Infrastructure.Services.Settings;
 using UnityEngine;
 
-namespace Codebase.Core.Gameplay.Controller
+namespace Codebase.Core.Gameplay.Controllers.Runner
 {
     public class Anchor : MonoBehaviour
     {
         private bool _mousePressed;
         private IInputService _inputService;
-        private MoveSettings _moveSettings;
+        private AnchorMoveSettings _anchorMoveSettings;
         private IEventBus _eventBus;
         private bool _isMoving;
         private float _xOffset;
@@ -27,7 +27,7 @@ namespace Codebase.Core.Gameplay.Controller
 
         private void Awake()
         {
-            _moveSettings = AllServices.Container.Single<GameSettings>().MoveSettings;
+            _anchorMoveSettings = AllServices.Container.Single<GameSettings>().AnchorMoveSettings;
             
             _inputService = AllServices.Container.Single<IInputService>();
 
@@ -38,6 +38,14 @@ namespace Codebase.Core.Gameplay.Controller
             
             _eventBus.GamePlayStartEvent += EventBus_OnGamePlayStartEvent;
             _eventBus.LevelFinishedEvent += EventBus_OnLevelFinishedEvent;
+        }
+
+        private void Update()
+        {
+            if (_mousePressed && _isMoving)
+            {
+                MoveAnchor();
+            }
         }
 
         private void OnDestroy()
@@ -57,25 +65,17 @@ namespace Codebase.Core.Gameplay.Controller
         private void InputService_OnLeftMouseButtonDownEvent()
         {
             _mousePressed = true;
-            var normalizedAnchorXPosition = transform.localPosition.x / _moveSettings.AnchorMaxDeviation;
-            _xOffset = normalizedAnchorXPosition - GetPercentFromViewPort(_inputService.MousePositionInViewport);
-        }
-
-        private void Update()
-        {
-            if (_mousePressed && _isMoving)
-            {
-                MoveAnchor();
-            }
+            var normalizedAnchorXPosition = transform.localPosition.x / _anchorMoveSettings.AnchorMaxDeviation;
+            _xOffset = normalizedAnchorXPosition - GetPositionWithZeroCenter(_inputService.MousePositionInViewport);
         }
 
         private void MoveAnchor()
         {
-            var mouseXPositionPercent = (GetPercentFromViewPort(_inputService.MousePositionInViewport) + _xOffset) *
-                                        _moveSettings.AnchorMaxDeviation;
+            var mouseXPositionPercent = (GetPositionWithZeroCenter(_inputService.MousePositionInViewport) + _xOffset) *
+                                        _anchorMoveSettings.AnchorMaxDeviation;
             transform.localPosition = new Vector3(mouseXPositionPercent, 0, 0);
         }
 
-        private float GetPercentFromViewPort(Vector3 mousePosition) => (mousePosition.x - 0.5f) * 2;
+        private float GetPositionWithZeroCenter(Vector3 mousePosition) => (mousePosition.x - 0.5f) * 2;
     }
 }

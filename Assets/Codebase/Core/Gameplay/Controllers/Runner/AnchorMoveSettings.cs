@@ -1,10 +1,10 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Codebase.Core.Gameplay.Controller
+namespace Codebase.Core.Gameplay.Controllers.Runner
 {
     [Serializable]
-    public class MoveSettings
+    public class AnchorMoveSettings
     {
         [SerializeField] private float _forwardSpeed = 5;
         [SerializeField] private float _strafeSpeed = 10;
