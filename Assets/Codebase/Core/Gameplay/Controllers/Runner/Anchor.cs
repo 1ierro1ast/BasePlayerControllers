@@ -28,14 +28,14 @@ namespace Codebase.Core.Gameplay.Controllers.Runner
         private void Awake()
         {
             _anchorMoveSettings = AllServices.Container.Single<GameSettings>().AnchorMoveSettings;
-            
+
             _inputService = AllServices.Container.Single<IInputService>();
 
             _inputService.LeftMouseButtonDownEvent += InputService_OnLeftMouseButtonDownEvent;
             _inputService.LeftMouseButtonUpEvent += InputService_OnLeftMouseButtonUpEvent;
 
             _eventBus = AllServices.Container.Single<IEventBus>();
-            
+
             _eventBus.GamePlayStartEvent += EventBus_OnGamePlayStartEvent;
             _eventBus.LevelFinishedEvent += EventBus_OnLevelFinishedEvent;
         }
@@ -65,16 +65,19 @@ namespace Codebase.Core.Gameplay.Controllers.Runner
         private void InputService_OnLeftMouseButtonDownEvent()
         {
             _mousePressed = true;
-            var normalizedAnchorXPosition = transform.localPosition.x / _anchorMoveSettings.AnchorMaxDeviation;
+            var normalizedAnchorXPosition = transform.localPosition.x / _anchorMoveSettings.AnchorInputSense;
             _xOffset = normalizedAnchorXPosition - GetPositionWithZeroCenter(_inputService.MousePositionInViewport);
         }
 
         private void MoveAnchor()
         {
             var mouseXPositionPercent = (GetPositionWithZeroCenter(_inputService.MousePositionInViewport) + _xOffset) *
-                                        _anchorMoveSettings.AnchorMaxDeviation;
+                                        _anchorMoveSettings.AnchorInputSense;
             var localPosition = transform.localPosition;
-            transform.localPosition = new Vector3(mouseXPositionPercent, localPosition.y, localPosition.z);
+            transform.localPosition =
+                new Vector3(
+                    Mathf.Clamp(mouseXPositionPercent, -_anchorMoveSettings.AnchorMaxDeviation,
+                        _anchorMoveSettings.AnchorMaxDeviation), localPosition.y, localPosition.z);
         }
 
         private float GetPositionWithZeroCenter(Vector3 mousePosition) => (mousePosition.x - 0.5f) * 2;

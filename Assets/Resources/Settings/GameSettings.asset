@@ -21,5 +21,7 @@ MonoBehaviour:
       m_Bits: 8
     _offsetFromGround: {x: 0, y: 30, z: 0}
     _raycastDistance: 100
+    _rotationMultiplier: 30
+    _rotateWhenStrafe: 1
   _inputSettings:
     _observerUpdateTime: 0.0002
