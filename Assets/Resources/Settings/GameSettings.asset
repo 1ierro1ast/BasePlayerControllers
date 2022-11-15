@@ -15,7 +15,8 @@ MonoBehaviour:
   _anchorMoveSettings:
     _forwardSpeed: 5
     _strafeSpeed: 10
-    _anchorMaxDeviation: 1.5
+    _anchorInputSense: 1.5
+    _anchorMaxDeviation: 2
     _groundLayerMask:
       serializedVersion: 2
       m_Bits: 8
