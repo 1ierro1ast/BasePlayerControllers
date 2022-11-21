@@ -19,6 +19,7 @@ namespace Codebase.Core.Gameplay.Controllers.CharacterThirdPersonController
             base.OnInitialize();
             _inputService = AllServices.Container.Single<IInputService>();
             _moveProvider = GetComponent<IMoveProvider>();
+            if(_moveProvider == null) Debug.LogWarning("There is no move providers on object!");
         }
 
         protected override void OnMove()

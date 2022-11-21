@@ -33,9 +33,9 @@ namespace Codebase.Core.Gameplay.Controllers.CharacterThirdPersonController.Look
             switch (_rotationLink.RotationAxis)
             {
                 case RotationAxis.X:
-                    return Vector3.up;
-                case RotationAxis.Y:
                     return Vector3.left;
+                case RotationAxis.Y:
+                    return Vector3.up;
                 case RotationAxis.Z:
                     return Vector3.forward;
                 default: return Vector3.zero;

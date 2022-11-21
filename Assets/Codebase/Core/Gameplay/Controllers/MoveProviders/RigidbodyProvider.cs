@@ -15,7 +15,7 @@ namespace Codebase.Core.Gameplay.Controllers.MoveProviders
 
         public void Move(Vector3 direction, float speed)
         {
-            _rigidbody.MovePosition(_rigidbody.position + direction * speed);
+            _rigidbody.velocity = direction * speed;
         }
 
         public void SetLocalPosition(Vector3 newPosition)
