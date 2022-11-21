@@ -9,7 +9,6 @@ namespace Codebase.Core.Gameplay.Controllers.RunnerController
         [SerializeField] private float _forwardSpeed = 5;
         [SerializeField] private float _strafeSpeed = 10;
         [SerializeField] private float _inputSense = 1.5f;
-        [SerializeField] private float _maxDeviation = 2f;
 
         [Space] 
         [SerializeField] private LayerMask _groundLayerMask;
@@ -26,7 +25,6 @@ namespace Codebase.Core.Gameplay.Controllers.RunnerController
         public float ForwardSpeed => _forwardSpeed;
         public float StrafeSpeed => _strafeSpeed;
         public float InputSense => _inputSense;
-        public float MaxDeviation => _maxDeviation;
         public LayerMask GroundLayerMask => _groundLayerMask;
         public Vector3 OffsetFromGround => _offsetFromGround;
         public float RaycastDistance => _raycastDistance;

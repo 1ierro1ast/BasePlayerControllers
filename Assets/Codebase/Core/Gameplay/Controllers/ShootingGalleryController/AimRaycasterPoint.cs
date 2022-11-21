@@ -2,7 +2,7 @@
 using Codebase.Infrastructure.Services.Input;
 using UnityEngine;
 
-namespace Codebase.Core.Gameplay.Controllers.ShootingGallery
+namespace Codebase.Core.Gameplay.Controllers.ShootingGalleryController
 {
     public class AimRaycasterPoint : MonoBehaviour
     {
@@ -22,11 +22,5 @@ namespace Codebase.Core.Gameplay.Controllers.ShootingGallery
             bool notEmpty = Physics.Raycast(ray, out hit, _raycastDistance, _raycastMask);
             return new RaycastResult{NotEmpty = notEmpty, Hit = hit};
         }
-    }
-
-    public struct RaycastResult
-    {
-        public bool NotEmpty;
-        public RaycastHit Hit;
     }
 }

@@ -3,21 +3,12 @@ using Codebase.Infrastructure.Services;
 using Codebase.Infrastructure.Services.Input;
 using UnityEngine;
 
-namespace Codebase.Core.Gameplay.Controllers.ShootingGallery
+namespace Codebase.Core.Gameplay.Controllers.ShootingGalleryController
 {
     public class AimMover : BoundMover
     {
-        [SerializeField] private float _aimSpeed;
-        
-        private IInputService _inputService;
         private Vector3 _direction;
         private AimRaycasterPoint _raycaster;
-
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-            _inputService = AllServices.Container.Single<IInputService>();
-        }
 
         protected override void OnMove()
         {
@@ -26,8 +17,6 @@ namespace Codebase.Core.Gameplay.Controllers.ShootingGallery
             
             RaycastResult raycastResult = _raycaster.Raycast();
             if(raycastResult.NotEmpty) transform.localPosition = raycastResult.Hit.point;
-            //_direction = new Vector3(_inputService.HorizontalSpeed, _inputService.VerticalSpeed).normalized;
-            //transform.Translate(_direction * (_aimSpeed * Time.deltaTime));
         }
 
         private void ValidateRaycaster()

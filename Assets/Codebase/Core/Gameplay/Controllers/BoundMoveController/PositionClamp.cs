@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Codebase.Core.Gameplay.Controllers.BoundMoveController
@@ -7,6 +8,12 @@ namespace Codebase.Core.Gameplay.Controllers.BoundMoveController
         [SerializeField] private ClampAxis _axis;
         [SerializeField] private float _minBorder;
         [SerializeField] private float _maxBorder;
+
+        private void Awake()
+        {
+            if (!TryGetComponent(out BoundMover boundMover))
+                Debug.LogWarning("PositionClamp needs a component that inherits BoundMover!");
+        }
 
         public Vector3 Clamp(Vector3 currentPosition)
         {

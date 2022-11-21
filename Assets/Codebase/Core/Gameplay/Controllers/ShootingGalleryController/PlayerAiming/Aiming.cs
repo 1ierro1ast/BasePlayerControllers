@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Codebase.Core.Gameplay.Controllers.ShootingGallery.PlayerAiming
+namespace Codebase.Core.Gameplay.Controllers.ShootingGalleryController.PlayerAiming
 {
     public class Aiming : MonoBehaviour
     {

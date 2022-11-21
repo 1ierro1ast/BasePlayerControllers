@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Codebase.Core.Gameplay.Controllers.CharacterThirdPersonController.LookRotation
 {
+    [RequireComponent(typeof(MouseLookRotation))]
     public class ObjectRotationToMouseLink : MonoBehaviour, IObjectRotation
     {
         [SerializeField] private RotationLink _rotationLink;
