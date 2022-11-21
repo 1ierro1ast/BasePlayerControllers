@@ -1,15 +1,15 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Codebase.Core.Gameplay.Controllers.Runner
+namespace Codebase.Core.Gameplay.Controllers.RunnerController
 {
     [Serializable]
-    public class AnchorMoveSettings
+    public class MoveSettings
     {
         [SerializeField] private float _forwardSpeed = 5;
         [SerializeField] private float _strafeSpeed = 10;
-        [SerializeField] private float _anchorInputSense = 1.5f;
-        [SerializeField] private float _anchorMaxDeviation = 2f;
+        [SerializeField] private float _inputSense = 1.5f;
+        [SerializeField] private float _maxDeviation = 2f;
 
         [Space] 
         [SerializeField] private LayerMask _groundLayerMask;
@@ -25,8 +25,8 @@ namespace Codebase.Core.Gameplay.Controllers.Runner
 
         public float ForwardSpeed => _forwardSpeed;
         public float StrafeSpeed => _strafeSpeed;
-        public float AnchorInputSense => _anchorInputSense;
-        public float AnchorMaxDeviation => _anchorMaxDeviation;
+        public float InputSense => _inputSense;
+        public float MaxDeviation => _maxDeviation;
         public LayerMask GroundLayerMask => _groundLayerMask;
         public Vector3 OffsetFromGround => _offsetFromGround;
         public float RaycastDistance => _raycastDistance;

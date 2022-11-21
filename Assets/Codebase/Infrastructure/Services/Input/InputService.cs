@@ -16,6 +16,9 @@ namespace Codebase.Infrastructure.Services.Input
         
         public event Action<float> MouseWheelScrollDownEvent;
         public event Action<float> MouseWheelScrollUpEvent;
+        
+        public float MouseX => UnityEngine.Input.GetAxis("Mouse X");
+        public float MouseY => UnityEngine.Input.GetAxis("Mouse Y");
 
         public float HorizontalSpeed => UnityEngine.Input.GetAxis("Horizontal");
         public float VerticalSpeed => UnityEngine.Input.GetAxis("Vertical");
@@ -45,6 +48,13 @@ namespace Codebase.Infrastructure.Services.Input
                 
                 yield return _waiting;
             }
+        }
+
+        public Ray GetRayByScreenPoint(Vector3 screenPoint)
+        {
+            if(_camera == null) _camera = Camera.main;
+
+            return _camera.ScreenPointToRay(screenPoint);
         }
 
         private Vector3 GetMousePosition(PositionSpace positionSpace = PositionSpace.Screen)

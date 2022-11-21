@@ -1,26 +1,27 @@
 ﻿using System;
+using Codebase.Core.Gameplay.Controllers.BoundMoveController;
 using Codebase.Infrastructure.Services;
 using Codebase.Infrastructure.Services.Settings;
 using UnityEngine;
 
-namespace Codebase.Core.Gameplay.Controllers.Runner
+namespace Codebase.Core.Gameplay.Controllers.RunnerController
 {
-    public class ToAnchorMover : MonoBehaviour
+    public class ToAnchorMover : BoundMover
     {
         private StrafeRotationExtension _strafeRotationExtension;
-        private AnchorMoveSettings _anchorMoveSettings;
+        private MoveSettings _moveSettings;
         private Anchor _anchor;
         private const string Tag = "[ToAnchorMover]";
 
-        private void Awake()
+        protected override void OnInitialize()
         {
-            _anchorMoveSettings = AllServices.Container.Single<GameSettings>().AnchorMoveSettings;
+            _moveSettings = AllServices.Container.Single<GameSettings>().MoveSettings;
             _anchor = FindObjectOfType<Anchor>();
             _strafeRotationExtension = GetComponent<StrafeRotationExtension>();
-            _strafeRotationExtension?.Construct(_anchor.transform, _anchorMoveSettings);
+            _strafeRotationExtension?.Construct(_anchor.transform, _moveSettings);
         }
 
-        private void LateUpdate()
+        protected override void OnLateMove()
         {
             if (_anchor == null)
             {
@@ -32,7 +33,7 @@ namespace Codebase.Core.Gameplay.Controllers.Runner
             var anchorTransformPosition = _anchor.transform.position;
             
             transform.position = Vector3.Lerp(transform.position, anchorTransformPosition,
-                _anchorMoveSettings.StrafeSpeed * Time.deltaTime);
+                _moveSettings.StrafeSpeed * Time.deltaTime);
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using Codebase.Core.Gameplay.Controllers;
-using Codebase.Core.Gameplay.Controllers.Runner;
+using Codebase.Core.Gameplay.Controllers.RunnerController;
 using UnityEngine;
 
 namespace Codebase.Infrastructure.Services.Settings
 {
     public partial class GameSettings
     {
-        [SerializeField] private AnchorMoveSettings _anchorMoveSettings;
+        [SerializeField] private MoveSettings _moveSettings;
 
-        public AnchorMoveSettings AnchorMoveSettings => _anchorMoveSettings;
+        public MoveSettings MoveSettings => _moveSettings;
     }
 }

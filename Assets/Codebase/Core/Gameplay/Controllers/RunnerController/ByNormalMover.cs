@@ -1,21 +1,22 @@
+using Codebase.Core.Gameplay.Controllers.BoundMoveController;
 using Codebase.Infrastructure.Services;
 using Codebase.Infrastructure.Services.Settings;
 using UnityEngine;
 
-namespace Codebase.Core.Gameplay.Controllers.Runner
+namespace Codebase.Core.Gameplay.Controllers.RunnerController
 {
-    public class ByNormalMover : MonoBehaviour
+    public class ByNormalMover : BoundMover
     {
-        private AnchorMoveSettings _moveSettings;
+        private MoveSettings _moveSettings;
         private Ray _ray;
         private RaycastHit _hit;
 
-        private void Awake()
+        protected override void OnInitialize()
         {
-            _moveSettings = AllServices.Container.Single<GameSettings>().AnchorMoveSettings;
+            _moveSettings = AllServices.Container.Single<GameSettings>().MoveSettings;
         }
 
-        private void FixedUpdate()
+        protected override void OnFixedMove()
         {
             if (CheckGround())
                 ProjectY();
@@ -26,13 +27,12 @@ namespace Codebase.Core.Gameplay.Controllers.Runner
         private void ApplyGravity()
         {
             var currentLocalPosition = transform.localPosition;
-            transform.localPosition += new Vector3(currentLocalPosition.x, -1, currentLocalPosition.z)
-            * (9f * Time.fixedDeltaTime);
+            transform.localPosition += new Vector3(currentLocalPosition.x, -1, currentLocalPosition.z) *
+                                       (9f * Time.fixedDeltaTime);
         }
 
         private void ProjectY()
         {
-            
             var currentLocalPosition = transform.position;
             Vector3 localPoint = _hit.point;
             localPoint.x = currentLocalPosition.x;

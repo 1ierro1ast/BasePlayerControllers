@@ -1,4 +1,3 @@
-using System.Globalization;
 using UnityEngine;
 
 namespace Codebase.Core.Gameplay.Controllers.ShootingGallery.PlayerAiming

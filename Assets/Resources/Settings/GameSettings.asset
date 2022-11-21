@@ -12,17 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a61419ac519438b8fb4288ea6153578, type: 3}
   m_Name: GameSettings
   m_EditorClassIdentifier: 
-  _anchorMoveSettings:
+  _moveSettings:
     _forwardSpeed: 5
     _strafeSpeed: 10
-    _anchorInputSense: 1.5
-    _anchorMaxDeviation: 2
+    _inputSense: 1.5
+    _maxDeviation: 2
     _groundLayerMask:
       serializedVersion: 2
       m_Bits: 8
     _offsetFromGround: {x: 0, y: 30, z: 0}
     _raycastDistance: 100
-    _rotationMultiplier: 30
-    _rotateWhenStrafe: 1
+    _rotationMultiplier: 2
+    _rotateWhenStrafe: 0
   _inputSettings:
     _observerUpdateTime: 0.0002

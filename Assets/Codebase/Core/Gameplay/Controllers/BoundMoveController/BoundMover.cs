@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Codebase.Core.Gameplay.Controllers.BoundMoveController
 {
@@ -12,14 +13,21 @@ namespace Codebase.Core.Gameplay.Controllers.BoundMoveController
             OnInitialize();
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            Move();
+            OnFixedMove();
+            ApplyBounds();
         }
 
-        private void Move()
+        private void Update()
         {
             OnMove();
+            ApplyBounds();
+        }
+
+        private void LateUpdate()
+        {
+            OnLateMove();
             ApplyBounds();
         }
 
@@ -37,6 +45,16 @@ namespace Codebase.Core.Gameplay.Controllers.BoundMoveController
         }
 
         protected virtual void OnMove()
+        {
+            
+        }
+        
+        protected virtual void OnFixedMove()
+        {
+            
+        }
+        
+        protected virtual void OnLateMove()
         {
             
         }
