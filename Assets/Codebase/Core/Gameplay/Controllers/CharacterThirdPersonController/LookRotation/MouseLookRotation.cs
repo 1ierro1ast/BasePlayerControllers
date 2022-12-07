@@ -5,7 +5,7 @@ namespace Codebase.Core.Gameplay.Controllers.CharacterThirdPersonController.Look
     public class MouseLookRotation : MonoBehaviour
     {
         private ObjectRotationToMouseLink[] _rotationToMouseLinks;
-        
+
         private void Awake()
         {
             _rotationToMouseLinks = GetComponents<ObjectRotationToMouseLink>();

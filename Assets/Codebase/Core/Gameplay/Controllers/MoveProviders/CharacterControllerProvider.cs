@@ -17,6 +17,16 @@ namespace Codebase.Core.Gameplay.Controllers.MoveProviders
             _characterController.Move(direction * speed);
         }
 
+        public void Rotate(Vector3 axis, float torqueForce)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Rotate(Quaternion rotation, float torqueForce)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void SetLocalPosition(Vector3 newPosition)
         {
             transform.localPosition = newPosition;

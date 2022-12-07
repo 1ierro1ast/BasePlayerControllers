@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Codebase.Core.Gameplay.Controllers.MoveProviders
 {
@@ -16,6 +15,16 @@ namespace Codebase.Core.Gameplay.Controllers.MoveProviders
         public void Move(Vector3 direction, float speed)
         {
             _rigidbody.velocity = direction * speed;
+        }
+
+        public void Rotate(Vector3 axis, float torqueForce)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Rotate(Quaternion rotation, float torqueForce)
+        {
+            throw new System.NotImplementedException();
         }
 
         public void SetLocalPosition(Vector3 newPosition)
