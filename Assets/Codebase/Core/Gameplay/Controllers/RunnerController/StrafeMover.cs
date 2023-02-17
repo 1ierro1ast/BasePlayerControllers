@@ -1,6 +1,7 @@
 ﻿using Codebase.Core.Gameplay.Controllers.BoundMoveController;
 using Codebase.Core.Gameplay.Controllers.MoveProviders;
-using Codebase.Infrastructure.GameFlow;
+using Codebase.Infrastructure.GameFlow.EventBusSystem;
+using Codebase.Infrastructure.GameFlow.Events;
 using Codebase.Infrastructure.Services;
 using Codebase.Infrastructure.Services.Input;
 using Codebase.Infrastructure.Services.Settings;
@@ -30,8 +31,8 @@ namespace Codebase.Core.Gameplay.Controllers.RunnerController
 
             _eventBus = AllServices.Container.Single<IEventBus>();
 
-            _eventBus.GamePlayStartEvent += EventBus_OnGamePlayStartEvent;
-            _eventBus.LevelFinishedEvent += EventBus_OnLevelFinishedEvent;
+            _eventBus.Subscribe<GameplayStarted>(OnGameplayStarted);
+            _eventBus.Subscribe<LevelFinished>(OnLevelFinished);
         }
 
         protected override void OnMove()
@@ -47,8 +48,8 @@ namespace Codebase.Core.Gameplay.Controllers.RunnerController
             _inputService.LeftMouseButtonDownEvent -= InputService_OnLeftMouseButtonDownEvent;
             _inputService.LeftMouseButtonUpEvent -= InputService_OnLeftMouseButtonUpEvent;
 
-            _eventBus.GamePlayStartEvent -= EventBus_OnGamePlayStartEvent;
-            _eventBus.LevelFinishedEvent -= EventBus_OnLevelFinishedEvent;
+            _eventBus.Unsubscribe<GameplayStarted>(OnGameplayStarted);
+            _eventBus.Unsubscribe<LevelFinished>(OnLevelFinished);
         }
 
         private void InputService_OnLeftMouseButtonUpEvent()
@@ -63,12 +64,12 @@ namespace Codebase.Core.Gameplay.Controllers.RunnerController
             _xOffset = normalizedAnchorXPosition - GetPositionWithZeroCenter(_inputService.MousePositionInViewport);
         }
 
-        private void EventBus_OnLevelFinishedEvent()
+        private void OnLevelFinished()
         {
             _isMoving = false;
         }
 
-        private void EventBus_OnGamePlayStartEvent()
+        private void OnGameplayStarted()
         {
             _isMoving = true;
         }

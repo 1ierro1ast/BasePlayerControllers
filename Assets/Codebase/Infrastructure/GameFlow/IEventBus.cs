@@ -1,20 +1,12 @@
 using System;
 using Codebase.Infrastructure.Services;
 
-namespace Codebase.Infrastructure.GameFlow
+namespace Codebase.Infrastructure.GameFlow.EventBusSystem
 {
     public interface IEventBus : IService
     {
-        event Action LevelLoadedEvent;
-        event Action GamePlayStartEvent;
-        event Action LevelFinishedEvent;
-        event Action PlayerWinEvent;
-        event Action PlayerLoseEvent;
-
-        void BroadcastLevelLoaded();
-        void BroadcastGamePlayStart();
-        void BroadcastLevelFinished();
-        void BroadcastPlayerWin();
-        void BroadcastPlayerLose();
+        void Subscribe<T>(Action callback) where T : IEvent;
+        void Unsubscribe<T>(Action callback) where T : IEvent;
+        void Fire<T>() where T : IEvent;
     }
 }

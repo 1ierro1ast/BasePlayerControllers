@@ -1,10 +1,10 @@
 ﻿using Codebase.Core.Ads;
 using Codebase.Core.Analytics;
+using Codebase.Infrastructure.GameFlow.EventBusSystem;
 using Codebase.Infrastructure.Services;
 using Codebase.Infrastructure.Services.AssetManagement;
 using Codebase.Infrastructure.Services.DataStorage;
 using Codebase.Infrastructure.Services.Factories;
-using Codebase.Infrastructure.Services.Input;
 using Codebase.Infrastructure.Services.SaveLoad;
 using Codebase.Infrastructure.Services.Settings;
 using Codebase.Infrastructure.StateMachine;
@@ -50,7 +50,6 @@ namespace Codebase.Infrastructure.GameFlow.States
             RegisterAssetProvider();
             RegisterSaveLoadService();
             RegisterGameSettings();
-            RegisterInputService();
 
             RegisterGameVariables();
             RegisterEventBus();
@@ -60,12 +59,6 @@ namespace Codebase.Infrastructure.GameFlow.States
             RegisterUiFactory();
 
             RegisterLevelFactory();
-        }
-
-        private void RegisterInputService()
-        {
-            _services.RegisterSingle<IInputService>(
-                new InputService(_coroutineRunner, _services.Single<GameSettings>()));
         }
 
         private void RegisterGameSettings()
@@ -112,7 +105,7 @@ namespace Codebase.Infrastructure.GameFlow.States
         private void RegisterLevelFactory()
         {
             _services.RegisterSingle<ILevelFactory>(
-                new LevelFactory(_services.Single<IAssetProvider>(),
+                new LevelFactory(_services.Single<IAssetProvider>(), 
                     _services.Single<IGameVariables>(),
                     _services.Single<ITemporaryLevelVariables>()));
         }
